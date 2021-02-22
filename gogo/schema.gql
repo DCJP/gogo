@@ -314,7 +314,8 @@ type Megazord {
 
 
 type Query {
-  allCards: [Card!]
+  findCardById(id:ID!): [Card!]
+  findAllCards: [Card!] @resolver(name: "findAllCards")
   allCardInfo: [CardInfo!]
   allZords: [Zord!]
   allRangers: [Ranger!]
@@ -327,7 +328,7 @@ type Todo {
 }
 
 type Mutation {
-  addCards(cards: [AddCardInput]): [Card]! @resolver(name: "add_cards" paginated:false)
+  addCards(cards: [AddCardInput]): [Card]! @resolver(name: "findAllCards" paginated:true)
 # updateCard(id: ID!, input: updateCard!): Card
 # addCardInfo(input: addCardInfo!): CardInfo
 # updateCardInfo(id: ID!, input: updateCardInfo!): CardInfo

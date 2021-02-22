@@ -23,8 +23,8 @@ function getErrorMessage(error, data) {
 |--------------------------------------------------
 */
 export const useCards = () => {
-  const query = `query Cards($size: Int) {
-    allCards(_size: $size) {
+  const query = `query findCards {
+    allCards {
       data {
         id
         name
@@ -32,7 +32,6 @@ export const useCards = () => {
         entity
         set
       }
-      after
     }
   }`
   const size = 100

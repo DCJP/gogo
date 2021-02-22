@@ -16,7 +16,7 @@ function getCards(data) {
 
 export default function Hero(props) {
   const { data, errorMessage } = useCards()
-  const [cards, setEntries] = useState([])
+  // const [cards, setEntries] = useState([])
 
   // useEffect(() => {
   //   if (!cards.length) {
@@ -52,10 +52,11 @@ export default function Hero(props) {
           //   </li>
           // ))}
           // </ul>
-          cards.map((card, index, allCards) => {
+          data.allCards.data.map((card, index) => {
             return (
               <div>
-                <li key={card.id}>
+                <p>Tried to render</p>
+                <li>
                   <span>{card.name}</span>
                 </li>
               </div>
