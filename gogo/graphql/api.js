@@ -24,7 +24,6 @@ function getErrorMessage(error, data) {
 */
 export const useCards = (props) => {
   const query = props
-  const size = 100
   const { data, error } = useFetch(
     process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT,
     {
@@ -36,7 +35,6 @@ export const useCards = (props) => {
       },
       body: JSON.stringify({
         query,
-        variables: { size },
       }),
     }
   )
@@ -64,9 +62,7 @@ export const useCards = (props) => {
 |--------------------------------------------------
 */
 export const createCard = async (props) => {
-  console.log(props)
   const query = props
-  const size = 100
 
   const res = await fetch(process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT, {
     method: 'POST',
@@ -77,11 +73,26 @@ export const createCard = async (props) => {
     },
     body: JSON.stringify({
       query,
-      variables: { size }
     }),
   })
-  console.log(res)
   const data = await res.json()
-  console.log(data)
   return data
 }
+
+export const deleteCard = async(props) => {
+    const query = props
+  
+    const res = await fetch(process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_FAUNADB_SECRET}`,
+        'Content-type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query,
+      }),
+    })
+    const data = await res.json()
+    return data
+  }
