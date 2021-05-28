@@ -1,73 +1,103 @@
 import { useState, useEffect } from 'react'
-import { useCards, createGuestbookEntry } from '../graphql/api'
-// import Header from './Header'
-// import GuestbookEntry from './GuestbookEntry'
-import GuestbookEntryDivider from './GuestbookEntryDivider'
-// import Card from './Card'
-import {
-  hero,
-  heroContainer,
-  cardEntries,
-} from '../styles/hero'
+import { useCards, createCard } from '../graphql/api'
+import {cardList} from '../styles/card'
 
 function getCards(data) {
   return data ? data.allCards.data.reverse() : []
 }
 
 export default function Hero(props) {
-  const { data, errorMessage } = useCards()
-  // const [cards, setEntries] = useState([])
-
-  // useEffect(() => {
-  //   if (!cards.length) {
-  //     setEntries(useCards(data))
-  //   }
-  // }, [data, cards.length])
-
+  const query = `query findCards {
+    allCards {
+      data {
+        id
+        name
+        description
+        entity
+        actionType
+        attack
+        shield
+        energy
+        ability
+        symbol
+        frequency
+        energyEfficiency
+        extraDamage
+        cardOrderManipulation
+        advantage
+        team
+        image
+        specialText
+        multiAttack
+        releaseDate
+        role
+        set
+        color
+      }
+    }
+  }`
+  const postQuery = `mutation CreateCard{
+    createCard(data: {
+        name: "big punch"
+        description: "punch that hurts"
+        set: "Starter set"
+        id: 0
+        entity: RANGER
+      }) {
+        name
+        description
+        set
+        id
+        entity
+      }
+  }`
+  const { data, errorMessage } = useCards(query)
+ 
   return (
-    <div className={heroContainer.className}>
-      <div className={cardEntries.className}>
+    <div /*className={heroContainer.className}*/>
+      <div /*className={cardEntries.className}*/>
         {errorMessage ? (
           <p>{errorMessage}</p>
         ) : !data ? (
           <p>Loading cards...</p>
         ) : (
-          // entries.map((entry, index, allEntries) => {
-          //   const date = new Date(entry._ts / 1000)
-          //   return (
-          //     <div key={entry._id}>
-          //       <GuestbookEntry
-          //         twitter_handle={entry.twitter_handle}
-          //         story={entry.story}
-          //         date={date}
-          //       />
-          //       {index < allEntries.length - 1 && <GuestbookEntryDivider />}
-          //     </div>
-          //   )
-          // }
-          // <ul>
-          // {data.allCards.data.map((card) => (
-          //   <li key={card.id}>
-          //     <span>{card.name}</span>
-          //   </li>
-          // ))}
-          // </ul>
-          data.allCards.data.map((card, index) => {
+          data.allCards.data.map((card) => {
             return (
-              <div>
-                <p>Tried to render</p>
-                <li>
-                  <span>{card.name}</span>
-                </li>
+              <div className={cardList.className}>
+                <ul className={cardList.className}>
+                  <li>{card.id}</li>
+                  <li>{card.name}</li>
+                  <li>{card.description}</li>
+                  <li>{card.entity}</li>
+                  <li>{card.actionType}</li>
+                  <li>{card.attack}</li>
+                  <li>{card.shield}</li>
+                  <li>{card.energy}</li>
+                  <li>{card.ability}</li>
+                  <li>{card.symbol}</li>
+                  <li>{card.frequency}</li>
+                  <li>{card.energyEfficiency}</li>
+                  <li>{card.extraDamage}</li>
+                  <li>{card.cardOrderManipulation}</li>
+                  <li>{card.advantage}</li>
+                  <li>{card.team}</li>
+                  <li>{card.image}</li>
+                  <li>{card.specialText}</li>
+                  <li>{card.multiAttack}</li>
+                  <li>{card.releaseDate}</li>
+                  <li>{card.role}</li>
+                  <li>{card.settings}</li>
+                  <li>{card.color}</li>
+                </ul>
               </div>
             )
           })
         )
       }
+      <button onClick={createCard(postQuery)}>Add Card</button>
       </div>
-      {cardEntries.styles}
-      {/* {heroContainer.styles}
-      {hero.styles} */}
+      {/* {heroContainer.styles} */}
+      {/* {hero.styles} */}
     </div>
   )
 }

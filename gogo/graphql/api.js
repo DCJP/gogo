@@ -22,18 +22,8 @@ function getErrorMessage(error, data) {
 | Learn more about GraphQL: https://graphql.org/learn/
 |--------------------------------------------------
 */
-export const useCards = () => {
-  const query = `query findCards {
-    allCards {
-      data {
-        id
-        name
-        description
-        entity
-        set
-      }
-    }
-  }`
+export const useCards = (props) => {
+  const query = props
   const size = 100
   const { data, error } = useFetch(
     process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT,
@@ -73,32 +63,25 @@ export const useCards = () => {
 | Learn more about GraphQL mutations: https://graphql.org/learn/queries/#mutations
 |--------------------------------------------------
 */
-// export const createGuestbookEntry = async (twitterHandle, story) => {
-//   const query = `mutation CreateGuestbookEntry($twitterHandle: String!, $story: String!) {
-//     createGuestbookEntry(data: {
-//       twitter_handle: $twitterHandle,
-//       story: $story
-//     }) {
-//       _id
-//       _ts
-//       twitter_handle
-//       story
-//     }
-//   }`
+export const createCard = async (props) => {
+  console.log(props)
+  const query = props
+  const size = 100
 
-//   const res = await fetch(process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT, {
-//     method: 'POST',
-//     headers: {
-//       Authorization: `Bearer ${process.env.NEXT_PUBLIC_FAUNADB_SECRET}`,
-//       'Content-type': 'application/json',
-//       Accept: 'application/json',
-//     },
-//     body: JSON.stringify({
-//       query,
-//       variables: { twitterHandle, story },
-//     }),
-//   })
-//   const data = await res.json()
-
-//   return data
-// }
+  const res = await fetch(process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_FAUNADB_SECRET}`,
+      'Content-type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+      variables: { size }
+    }),
+  })
+  console.log(res)
+  const data = await res.json()
+  console.log(data)
+  return data
+}

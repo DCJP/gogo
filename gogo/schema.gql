@@ -328,7 +328,7 @@ type Todo {
 }
 
 type Mutation {
-  addCards(cards: [AddCardInput]): [Card]! @resolver(name: "findAllCards" paginated:true)
+  # addCards(cards: [AddCardInput]): [Card]! @resolver(name: "findAllCards" paginated:true)
 # updateCard(id: ID!, input: updateCard!): Card
 # addCardInfo(input: addCardInfo!): CardInfo
 # updateCardInfo(id: ID!, input: updateCardInfo!): CardInfo
