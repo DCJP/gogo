@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useCards, createCard, deleteCard } from '../graphql/api'
+import { useCards, createCard} from '../graphql/api'
+import DeleteButton from './DeleteButton'
 import {cardList} from '../styles/card'
 
 function getCards(data) {
@@ -10,6 +11,7 @@ export default function Hero(props) {
   const query = `query findCards {
     allCards {
       data {
+        _id
         id
         name
         description
@@ -51,11 +53,11 @@ export default function Hero(props) {
         entity
       }
   }`
-  const deleteQuery = `mutation DeleteCard{
-      deleteCard(id: 299871402093183490 ) {
-        name
-    }
-  }`
+  // const deleteQuery = (id) => `mutation DeleteCard{
+  //     deleteCard(id: ${id} ) {
+  //       name
+  //   }
+  // }`
 
   const { data, errorMessage } = useCards(query)
  
@@ -68,9 +70,11 @@ export default function Hero(props) {
           <p>Loading cards...</p>
         ) : (
           data.allCards.data.map((card) => {
+            console.log(card._id)
             return (
-              <div className={cardList.className}>
+              <div className={card._id}>
                 <ul className={cardList.className}>
+                  <li>{card._id}</li>
                   <li>{card.id}</li>
                   <li>{card.name}</li>
                   <li>{card.description}</li>
@@ -95,13 +99,13 @@ export default function Hero(props) {
                   <li>{card.settings}</li>
                   <li>{card.color}</li>
                 </ul>
+                <DeleteButton id={card._id}/>
               </div>
             )
           })
         )
       }
-      <button onClick={createCard(postQuery)}>Add Card</button>\
-      <button onClick={deleteCard(deleteQuery)}>Delete Card</button>
+      <button onClick={() => createCard(postQuery)}>Add Card</button>\
       </div>
       {/* {heroContainer.styles} */}
       {/* {hero.styles} */}

@@ -63,7 +63,7 @@ export const useCards = (props) => {
 */
 export const createCard = async (props) => {
   const query = props
-
+  // console.log(props)
   const res = await fetch(process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -81,7 +81,8 @@ export const createCard = async (props) => {
 
 export const deleteCard = async(props) => {
     const query = props
-  
+    // console.log("button pressed")
+    console.log(props)
     const res = await fetch(process.env.NEXT_PUBLIC_FAUNADB_GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: {
