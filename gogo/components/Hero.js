@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useCards, createCard} from '../graphql/api'
 import DeleteButton from './DeleteButton'
+import CreateButton from './CreateButton'
 import {cardList} from '../styles/card'
 
 function getCards(data) {
@@ -38,21 +39,21 @@ export default function Hero(props) {
       }
     }
   }`
-  const postQuery = `mutation CreateCard{
-    createCard(data: {
-        name: "big punch"
-        description: "punch that hurts"
-        set: "Starter set"
-        id: 0
-        entity: RANGER
-      }) {
-        name
-        description
-        set
-        id
-        entity
-      }
-  }`
+  // const postQuery = `mutation CreateCard{
+  //   createCard(data: {
+  //       name: "big punch"
+  //       description: "punch that hurts"
+  //       set: "Starter set"
+  //       id: 0
+  //       entity: RANGER
+  //     }) {
+  //       name
+  //       description
+  //       set
+  //       id
+  //       entity
+  //     }
+  // }`
   // const deleteQuery = (id) => `mutation DeleteCard{
   //     deleteCard(id: ${id} ) {
   //       name
@@ -105,7 +106,7 @@ export default function Hero(props) {
           })
         )
       }
-      <button onClick={() => createCard(postQuery)}>Add Card</button>\
+      <CreateButton/>
       </div>
       {/* {heroContainer.styles} */}
       {/* {hero.styles} */}
